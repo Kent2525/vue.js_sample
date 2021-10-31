@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>section3</title>
+    <link rel="stylesheet" href="css/style.css">
+  </head> 
+  <body>
+    <script src="vue.js"></script>
+    <div id="app">
+      <p v-if="ifexample">If文</p><!--elseifとelseはすぐ下に記述しないと作動しない。-->
+      <p v-else-if="elseifexample">elseIf文</p>
+      <p v-else>else文</p>
+      <template v-if="templateif"><!--templateタグとはこのタグはすぐに描画されないでJSで後で使う用のタグ。templete内に全てにv-ifが適用されている。-->
+        <p>複数にif</p>
+        <p>複数にifをつける</p>
+        <p>複数にifをつけたい</p>
+      </template>
+      <button @click="templateif = !templateif">templateifボタン</button><br/><!--クリック毎にtemkate内が表示/非表示に切り替わる。-->
+      <p v-if="ifVsShow">if文とshow文</p>
+      <p v-show="ifVsShow">show文とif文</p><!--No.40 ifとshowは似ている。showは頻繁に実行されるものに使う。else等はない-->
+      <button @click="ifVsShow = !ifVsShow">ifとshowを比べるボタン</button>
+      <li v-for="fruit in fruits">{{fruit}}</li><!--No.41 foreachのような書き方-->
+    </div>
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          ifexample: false,//trueにするとIf文が表示される。
+          elseifexample: false,//ifexampleがfalseでここがtrueだとelseif文が表示される。
+          templateif: true,
+          ifVsShow: true,
+          fruits: ['りんご', 'バナナ', 'みかん'],
+        }
+      })
+    </script>
+  </body>

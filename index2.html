@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+  </head> 
+  <body>
+    <script src="vue.js"></script>
+    <div id="app">
+      <p class="color-test">{{ message }}</p>
+      <button v-on:click="reverseMessage">
+       メッセージ反転
+      </button>
+      <p>{{ counter }}</p>
+        <button @click="counter += 1">+1</button>
+        <p>{{ lessThanThree }}</p>
+        <input type="text" v-on:keyup.enter="myAlert"> <!--keyupは入力された時に発火。.enterはキー修飾詞 enterのみに反応-->
+        <h1 :class="classObject">Hello</h1><!--:classはv-bind:classの省略形。-->
+        <button @click="isActive = !isActive">切り替え</button>
+        <h1 :class="[{red: isActive}, bg]">Hello</h1> <!--classバインディングはこのように配列で指定することもできる-->
+        <h1 :style="{color: textColor, 'background-color': bgColor}">hello</h1><!--スタイル属性の紐付け。'background-color'はケバブケースなので''を使う。-->
+        <h1 :style="styleObject">Style属性のメジャーな書き方</h1><!--No.33 メジャーな書き方-->
+        <h1 :style="[styleObject, styleObject2]">複数のスタイルオブジェクトの適用</h1><!--No.34 複数のスタイルオブジェクトを適用させたい場合に配列構文を使って両方適用させる。-->
+
+    </div>
+
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          message: "HelloWorld!",
+          counter: 0,
+          isActive: true,
+          color: 'red',//cssを指定している。
+          bg: 'bg-blue',
+          textColor:'red',
+          bgColor: 'blue',
+          styleObject: {
+            color: 'red',
+            'background-color': 'yellow',
+          },
+          styleObject2: {
+            fontSize: '20px',
+          }
+
+        },
+        computed: {
+          lessThanThree: function() {
+            return this.counter > 3 ? '3より上' : '3以下'
+          }, //computedは動的な表現を使うことができる。dataのcounterを使うのでthisが必要。計算系で使用。二重中括弧内で使う
+          classObject: function() {
+             return {
+                red: this.isActive,
+                'bg-blue': !this.isActive
+            }
+          }
+        },
+        methods: {
+          reverseMessage: function(){
+          this.message = this.message.split('').reverse().join('')
+          },
+          myAlert() {
+            alert('アラート!');
+          }
+        }, //イベントパンドラ系で使用する。二重中括弧では使わない。使うと何度も実行されてメモリを食う。
+        watch: {
+          counter: function() {
+            var vm = this;
+            setTimeout(function(){
+              vm.counter = 0
+            }, 3000)
+          } //counterが3秒以上変化ない時に0に戻る。非同期処理。監視プロパティ、常にセットされたconterを監視して状況によって実行する。
+        }
+
+
+      })
+    </script>
+  </body>
+</html>
