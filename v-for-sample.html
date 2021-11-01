@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+  </head> 
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <div id="app">
+
+      <!-- data: 内の配列に基づいて順番に表示させる -->
+
+      <ul>
+        <li v-for="fruit in fruits">{{fruit}}</li>
+      </ul>
+
+      <!-- オブジェクトに対してv-forを使う -->
+
+      <ul>
+        <li v-for="value in object">{{value}}</li>
+      </ul>
+
+    </div>
+
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          //配列を順番に出す
+          fruits: ['りんご', 'バナナ', 'ブドウ'],
+          // オブジェクトに対して今回はvalueを表示させるのでkey:valueのvalueの値のみがhtmlに表示される。
+          object: {
+            firstname: '太郎',
+            lastName: '田中',
+            age: 21
+          }
+        },
+      })
+    </script>
+  </body>
+</html>
