@@ -12,19 +12,40 @@
     <div id="app">
 
       <!-- data: 内の配列に基づいて順番に表示させる -->
-
+      <!-- なぜ:keyをつけるのか？A. ファイル下部に記載-->
       <ul>
         <li v-for="fruit in fruits">{{fruit}}</li>
       </ul>
-
+ 
       <!-- オブジェクトに対してv-forを使う -->
 
       <ul>
-        <li v-for="value in object">{{value}}</li>
+        <li v-for="value in object" :key="fruit">{{value}}</li>
       </ul>
 
-    </div>
+      <!-- v-forに()で引数を設定してあげるとその指定した値を取得することができる。indexとはインデックス番号のこと -->
 
+      <ul>
+        <li v-for="(value, key, index) in object" :key="value">({{index}}){{key}}-{{value}}</li>
+      </ul>
+      
+      <!--整数値を指定された数字まで出力する。inの部分をofにしても同じ-->
+
+      <ul>
+        <li v-for="number in 10" :key="number">{{number}}</li>
+      </ul>
+
+      <!-- Key属性について -->
+      <!-- v-forを使う時には必ずつける。下記の例だともしkey属性をつけないと2番目のinputの要素の中身を消す事ができない。
+      keyをつけることによって、セット化することができる。-->
+      <ul>
+        <div v-for="fruit in fruits" :key="fruit">
+          <p>{{fruit}}</p>
+          <input type="text">
+        </div>
+      </ul>
+      <button @click="remove">先頭を削除</button>
+    </div>
     <script>
       new Vue({
         el: '#app',
@@ -38,6 +59,12 @@
             age: 21
           }
         },
+        // buttonを押した時に先頭の要素を削除する。
+        methods: {
+          remove: function() {
+            this.fruits.shift()
+          }
+        }
       })
     </script>
   </body>
